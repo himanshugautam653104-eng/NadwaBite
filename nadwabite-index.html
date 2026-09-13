@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NadwaBite — Har Bite Mein Taste, Ghar Tak Fast Delivery</title>
+<meta name="description" content="NadwaBite — local fast food home delivery in Nadwasarai, Mau, Uttar Pradesh. Order Samosa, Pizza, Biryani, Burgers, Momos and more on WhatsApp.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ==========================================================================
+   NADWABITE — DESIGN TOKENS
+   ========================================================================== */
+:root{
+  --cream:        #FFF6E7;
+  --cream-2:      #FFEFD6;
+  --charcoal:     #241A12;
+  --charcoal-soft:#4A3B2F;
+  --chili:        #D93A2B;
+  --chili-dark:   #B12E22;
+  --turmeric:     #F2A93C;
+  --turmeric-2:   #FBCB77;
+  --coriander:    #4B7A51;
+  --maroon:       #5A1B1F;
+  --white:        #FFFFFF;
+
+  --font-display: 'Baloo 2', system-ui, sans-serif;
+  --font-body:    'Manrope', system-ui, sans-serif;
+
+  --radius-card:  22px;
+  --shadow-soft:  0 10px 30px rgba(36,26,18,0.10);
+  --shadow-pop:   0 16px 40px rgba(217,58,43,0.28);
+  --container:    1180px;
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+html,body{ overflow-x:hidden; }
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+}
+
+body{
+  font-family: var(--font-body);
+  background: var(--cream);
+  color: var(--charcoal);
+  line-height:1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+button{ font-family:inherit; cursor:pointer; border:none; background:none; }
+ul{ list-style:none; }
+input, textarea, select{ font-family:inherit; font-size:1rem; }
+
+.wrap{
+  max-width: var(--container);
+  margin:0 auto;
+  padding: 0 24px;
+}
+
+h1,h2,h3,h4{
+  font-family: var(--font-display);
+  font-weight:700;
+  line-height:1.12;
+  color: var(--charcoal);
+}
+
+.eyebrow-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background: var(--cream-2);
+  color: var(--chili-dark);
+  font-weight:700;
+  font-size:0.82rem;
+  padding:7px 16px;
+  border-radius:100px;
+  border:1.5px dashed var(--turmeric);
+}
+
+.section{
+  padding: 84px 0;
+  position:relative;
+}
+.section-head{
+  max-width:640px;
+  margin-bottom:44px;
+}
+.section-head h2{
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+  margin: 14px 0 12px;
+}
+.section-head p{
+  color: var(--charcoal-soft);
+  font-size:1.05rem;
+}
+
+/* Zig-zag torn-paper divider between sections, for a hand-made tiffin-carrier feel */
+.zigzag-divider{
+  height: 26px;
+  width:100%;
+  background-repeat: repeat-x;
+  background-size: 34px 26px;
+  display:block;
+}
+.zigzag-cream-to-white{ background-color:var(--white); background-image: linear-gradient(135deg, var(--cream) 25%, transparent 25%), linear-gradient(225deg, var(--cream) 25%, transparent 25%); background-position: 0 0; }
+.zigzag-white-to-cream{ background-color:var(--cream); background-image: linear-gradient(135deg, var(--white) 25%, transparent 25%), linear-gradient(225deg, var(--white) 25%, transparent 25%); background-position: 0 0; }
+
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  font-family: var(--font-body);
+  font-weight:800;
+  font-size:1rem;
+  padding:15px 30px;
+  border-radius:100px;
+  transition: transform .18s ease, box-shadow .18s ease;
+  white-space:nowrap;
+}
+.btn:hover{ transform: translateY(-2px); }
+.btn:active{ transform: translateY(0); }
+.btn:disabled{ opacity:0.5; cursor:not-allowed; transform:none; }
+.btn-chili{ background: var(--chili); color:var(--white); box-shadow: var(--shadow-pop); }
+.btn-chili:hover{ background:var(--chili-dark); }
+.btn-outline{ background:transparent; color:var(--charcoal); border:2px solid var(--charcoal); }
+.btn-outline:hover{ background: var(--charcoal); color:var(--white); }
+.btn-turmeric{ background:var(--turmeric); color:var(--charcoal); }
+.btn-small{ padding:10px 20px; font-size:0.88rem; border-radius:100px; }
+.btn-block{ width:100%; }
+
+/* ==========================================================================
+   NAVBAR
+   ========================================================================== */
+header{
+  position:sticky; top:0; z-index:200;
+  background: rgba(255,246,231,0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(36,26,18,0.08);
+}
+.nav{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 24px;
+  max-width: var(--container);
+  margin:0 auto;
+}
+.brand{
+  display:flex; align-items:center; gap:10px;
+  font-family:var(--font-display);
+  font-weight:800; font-size:1.5rem;
+  color:var(--charcoal);
+}
+.brand .dot{ color:var(--chili); }
+.brand-badge{
+  width:40px; height:40px; border-radius:50%;
+  background: var(--chili);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.3rem;
+  box-shadow: var(--shadow-pop);
+}
+.nav-links{
+  display:flex; align-items:center; gap:6px;
+}
+.nav-links a{
+  font-weight:700; font-size:0.96rem;
+  padding:10px 16px; border-radius:100px;
+  color: var(--charcoal-soft);
+  transition: background .15s ease, color .15s ease;
+}
+.nav-links a:hover{ background: var(--cream-2); color:var(--chili-dark); }
+.nav-actions{ display:flex; align-items:center; gap:12px; }
+
+.cart-btn{
+  position:relative;
+  width:46px; height:46px; border-radius:50%;
+  background: var(--white);
+  border:2px solid var(--charcoal);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.15rem;
+}
+.cart-count{
+  position:absolute; top:-6px; right:-6px;
+  background: var(--chili); color:var(--white);
+  font-size:0.72rem; font-weight:800;
+  min-width:20px; height:20px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  border:2px solid var(--cream);
+}
+
+.hamburger{
+  display:none;
+  width:44px; height:44px;
+  border-radius:12px;
+  background:var(--white);
+  border:2px solid var(--charcoal);
+  align-items:center; justify-content:center;
+  font-size:1.3rem;
+}
+
+.mobile-menu{
+  display:none;
+  flex-direction:column;
+  background:var(--white);
+  border-top:1px solid rgba(36,26,18,0.08);
+  padding: 10px 24px 20px;
+}
+.mobile-menu a{
+  padding:14px 4px;
+  font-weight:700;
+  border-bottom:1px solid rgba(36,26,18,0.06);
+}
+.mobile-menu.open{ display:flex; }
+
+@media (max-width: 880px){
+  .nav-links{ display:none; }
+  .hamburger{ display:flex; }
+}
+
+/* ==========================================================================
+   HERO
+   ========================================================================== */
+.hero{
+  padding: 56px 0 70px;
+  background:
+    radial-gradient(circle at 85% 15%, rgba(242,169,60,0.28), transparent 45%),
+    radial-gradient(circle at 100% 90%, rgba(217,58,43,0.14), transparent 45%),
+    var(--cream);
+}
+.hero .wrap{
+  display:grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap:50px;
+  align-items:center;
+}
+.hero-copy h1{
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  margin: 18px 0 8px;
+}
+.hero-highlight{
+  position:relative;
+  display:inline-block;
+}
+.hero-highlight::before{
+  content:"";
+  position:absolute;
+  left:-6px; right:-6px; bottom:6px; top:38%;
+  background: var(--turmeric);
+  z-index:-1;
+  transform: rotate(-1.2deg);
+  border-radius: 6px 10px 8px 12px;
+}
+.hero-tagline{
+  font-family: var(--font-display);
+  font-weight:600;
+  color: var(--chili-dark);
+  font-size:1.15rem;
+  margin-bottom:18px;
+}
+.hero-copy p.lead{
+  font-size:1.08rem;
+  color: var(--charcoal-soft);
+  max-width:480px;
+  margin-bottom:30px;
+}
+.hero-ctas{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:28px; }
+.hero-meta{
+  display:flex; gap:26px; flex-wrap:wrap;
+}
+.hero-meta div{ display:flex; flex-direction:column; }
+.hero-meta strong{ font-family:var(--font-display); font-size:1.3rem; }
+.hero-meta span{ font-size:0.85rem; color:var(--charcoal-soft); }
+
+.tiffin{
+  position:relative;
+  width:100%;
+  max-width:360px;
+  margin:0 auto;
+}
+.tiffin-stack{ display:flex; flex-direction:column; align-items:center; gap:14px; }
+.tiffin-tier{
+  width:100%;
+  aspect-ratio: 3.4 / 1;
+  border-radius:100px;
+  display:flex; align-items:center; justify-content:center;
+  gap:18px;
+  font-size:2rem;
+  box-shadow: var(--shadow-soft);
+  border: 3px solid rgba(36,26,18,0.08);
+}
+.tiffin-tier:nth-child(1){ background: var(--chili); width:92%; }
+.tiffin-tier:nth-child(2){ background: var(--turmeric); width:100%; }
+.tiffin-tier:nth-child(3){ background: var(--coriander); width:92%; }
+.tiffin-handle{
+  width:64px; height:34px;
+  border:6px solid var(--charcoal);
+  border-bottom:none;
+  border-radius:34px 34px 0 0;
+  margin-bottom:-6px;
+}
+.tiffin-badge{
+  position:absolute;
+  top:-16px; right:-6px;
+  background: var(--white);
+  border-radius:50%;
+  width:96px; height:96px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  box-shadow: var(--shadow-soft);
+  transform: rotate(8deg);
+  text-align:center;
+}
+.tiffin-badge strong{ font-family:var(--font-display); font-size:1rem; color:var(--chili); line-height:1; }
+.tiffin-badge span{ font-size:0.62rem; font-weight:700; color:var(--charcoal-soft); }
+
+@media (max-width: 880px){
+  .hero .wrap{ grid-template-columns:1fr; }
+  .tiffin{ order:-1; max-width:280px; }
+}
+
+/* ==========================================================================
+   HOW IT WORKS
+   ========================================================================== */
+.steps{
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:22px;
+}
+.step-card{
+  background: var(--white);
+  border-radius: var(--radius-card);
+  padding:28px 22px;
+  box-shadow: var(--shadow-soft);
+  position:relative;
+}
+.step-num{
+  font-family: var(--font-display);
+  font-size:2.2rem;
+  color: var(--turmeric);
+  -webkit-text-stroke: 1.5px var(--charcoal);
+  margin-bottom:10px;
+}
+.step-card h3{ font-size:1.1rem; margin-bottom:8px; }
+.step-card p{ color:var(--charcoal-soft); font-size:0.94rem; }
+.step-icon{ font-size:1.8rem; margin-bottom:8px; }
+
+@media (max-width: 900px){
+  .steps{ grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 540px){
+  .steps{ grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   MENU
+   ========================================================================== */
+.menu-toolbar{
+  display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:space-between;
+  margin-bottom:28px;
+}
+.search-box{
+  flex:1; min-width:220px; max-width:360px;
+  display:flex; align-items:center; gap:10px;
+  background:var(--white);
+  border:2px solid rgba(36,26,18,0.12);
+  border-radius:100px;
+  padding:10px 18px;
+}
+.search-box input{
+  border:none; outline:none; background:none; width:100%; font-size:0.95rem;
+}
+.category-pills{
+  display:flex; gap:10px; flex-wrap:wrap;
+}
+.pill{
+  padding:9px 18px;
+  border-radius:100px;
+  font-weight:700; font-size:0.88rem;
+  background:var(--white);
+  border:2px solid rgba(36,26,18,0.12);
+  color:var(--charcoal-soft);
+  transition: all .15s ease;
+}
+.pill.active, .pill:hover{
+  background: var(--charcoal);
+  color:var(--white);
+  border-color:var(--charcoal);
+}
+
+.menu-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap:24px;
+}
+
+.food-card{
+  background: var(--white);
+  border-radius: var(--radius-card);
+  overflow:hidden;
+  box-shadow: var(--shadow-soft);
+  display:flex; flex-direction:column;
+  transition: transform .18s ease, box-shadow .18s ease;
+  position:relative;
+}
+.food-card:hover{ transform: translateY(-5px); box-shadow: 0 18px 36px rgba(36,26,18,0.16); }
+
+.food-card .card-corner{
+  position:absolute; top:0; right:0;
+  width:0; height:0;
+  border-style:solid;
+  border-width: 0 34px 34px 0;
+  border-color: transparent var(--cream) transparent transparent;
+  z-index:2;
+}
+
+.food-image{
+  width:100%; aspect-ratio: 4/3;
+  display:flex; align-items:center; justify-content:center;
+  font-size:3.2rem;
+  position:relative;
+}
+.food-image img{ width:100%; height:100%; object-fit:cover; }
+.food-cat-tag{
+  position:absolute; top:12px; left:12px;
+  background: rgba(255,255,255,0.92);
+  font-size:0.72rem; font-weight:800;
+  padding:5px 12px; border-radius:100px;
+  color:var(--charcoal);
+}
+.food-custom-tag{
+  position:absolute; top:12px; right:44px;
+  background: var(--coriander);
+  color:#fff;
+  font-size:0.66rem; font-weight:800;
+  padding:5px 10px; border-radius:100px;
+}
+.food-admin-controls{
+  position:absolute; top:10px; right:10px; z-index:3;
+  display:flex; gap:6px;
+}
+.food-admin-btn{
+  width:30px; height:30px; border-radius:50%;
+  background: var(--white);
+  border:1.5px solid var(--charcoal);
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.85rem;
+}
+.food-admin-btn:hover{ background:var(--turmeric); }
+.food-body{
+  padding:18px 20px 20px;
+  display:flex; flex-direction:column; gap:8px; flex:1;
+}
+.food-body h3{ font-size:1.12rem; }
+.food-body p.desc{ color:var(--charcoal-soft); font-size:0.88rem; flex:1; }
+.food-footer{
+  display:flex; align-items:center; justify-content:space-between;
+  margin-top:8px;
+}
+.food-price{ font-family:var(--font-display); font-size:1.25rem; color:var(--chili-dark); }
+.no-results{
+  text-align:center; padding:60px 20px; color:var(--charcoal-soft);
+  font-size:1.05rem;
+}
+
+/* ==========================================================================
+   ABOUT
+   ========================================================================== */
+.about-section{ background: var(--white); }
+.about-grid{
+  display:grid; grid-template-columns: 1fr 1fr; gap:50px; align-items:center;
+}
+.about-copy p{ color:var(--charcoal-soft); margin-bottom:16px; font-size:1.02rem; }
+.about-points{ display:flex; flex-direction:column; gap:14px; margin-top:20px; }
+.about-point{ display:flex; gap:12px; align-items:flex-start; }
+.about-point .ico{ font-size:1.3rem; }
+.about-point strong{ display:block; font-family:var(--font-display); font-size:1rem; }
+.about-point span{ color:var(--charcoal-soft); font-size:0.9rem; }
+
+.about-card{
+  background: var(--cream);
+  border-radius: var(--radius-card);
+  padding:34px;
+  box-shadow: var(--shadow-soft);
+}
+.about-card h3{ font-size:1.2rem; margin-bottom:18px; }
+.info-row{
+  display:flex; justify-content:space-between; align-items:center;
+  padding:14px 0;
+  border-bottom:1px dashed rgba(36,26,18,0.18);
+  font-size:0.95rem;
+  gap:10px;
+}
+.info-row:last-child{ border-bottom:none; }
+.info-row span:first-child{ color:var(--charcoal-soft); font-weight:600; flex-shrink:0; }
+.info-row span:last-child{ font-weight:800; text-align:right; }
+
+@media (max-width: 880px){
+  .about-grid{ grid-template-columns:1fr; }
+}
+
+/* ==========================================================================
+   CONTACT
+   ========================================================================== */
+.contact-section{ background: var(--charcoal); color: var(--cream); }
+.contact-section .section-head p{ color: rgba(255,246,231,0.7); }
+.contact-section .section-head h2{ color:var(--cream); }
+.contact-grid{
+  display:grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr));
+  gap:22px;
+}
+.contact-card{
+  background: rgba(255,246,231,0.06);
+  border:1px solid rgba(255,246,231,0.14);
+  border-radius: var(--radius-card);
+  padding:26px;
+}
+.contact-card .ico{
+  width:50px; height:50px; border-radius:50%;
+  background: var(--turmeric);
+  color:var(--charcoal);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.3rem; margin-bottom:16px;
+}
+.contact-card h4{ font-family:var(--font-display); color:var(--cream); margin-bottom:6px; font-size:1.05rem; }
+.contact-card p, .contact-card a{ color: rgba(255,246,231,0.75); font-size:0.92rem; }
+.contact-card a:hover{ color: var(--turmeric); }
+
+.instagram-btn{
+  display:inline-flex; align-items:center; gap:10px;
+  margin-top:36px;
+  background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+  color:#fff; font-weight:800; padding:14px 26px; border-radius:100px;
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+footer{
+  background: var(--maroon);
+  color: rgba(255,246,231,0.85);
+  padding: 46px 0 26px;
+}
+.footer-top{
+  display:flex; justify-content:space-between; align-items:flex-start;
+  flex-wrap:wrap; gap:24px;
+  padding-bottom:26px;
+  border-bottom:1px solid rgba(255,246,231,0.14);
+}
+.footer-brand{ font-family:var(--font-display); font-size:1.5rem; color:var(--cream); }
+.footer-tagline{ font-size:0.92rem; margin-top:6px; color: rgba(255,246,231,0.65); }
+.footer-links{ display:flex; gap:26px; flex-wrap:wrap; }
+.footer-links a{ font-size:0.92rem; font-weight:700; }
+.footer-links a:hover{ color: var(--turmeric); }
+.footer-bottom{
+  padding-top:20px;
+  display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  font-size:0.84rem; color: rgba(255,246,231,0.55);
+  align-items:center;
+}
+.owner-login-link{
+  font-size:0.78rem; color: rgba(255,246,231,0.4); font-weight:600;
+}
+.owner-login-link:hover{ color: var(--turmeric); }
+
+/* ==========================================================================
+   FLOATING WHATSAPP BUTTON
+   ========================================================================== */
+.fab-whatsapp{
+  position:fixed; bottom:24px; right:24px; z-index:300;
+  width:64px; height:64px; border-radius:50%;
+  background:#25D366;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.9rem;
+  box-shadow: 0 10px 26px rgba(37,211,102,0.5);
+  animation: pulseFab 2.6s infinite;
+}
+@keyframes pulseFab{
+  0%,100%{ transform:scale(1); }
+  50%{ transform:scale(1.07); }
+}
+
+/* ==========================================================================
+   CART DRAWER
+   ========================================================================== */
+.overlay{
+  position:fixed; inset:0; background:rgba(36,26,18,0.5);
+  z-index:400; opacity:0; pointer-events:none; transition:opacity .25s ease;
+}
+.overlay.open{ opacity:1; pointer-events:auto; }
+
+.cart-drawer{
+  position:fixed; top:0; right:0; height:100%; width:min(420px, 100%);
+  background: var(--cream);
+  z-index:401;
+  transform: translateX(100%);
+  transition: transform .3s ease;
+  display:flex; flex-direction:column;
+  box-shadow: -12px 0 40px rgba(0,0,0,0.2);
+}
+.cart-drawer.open{ transform: translateX(0); }
+.cart-header{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:22px 24px;
+  border-bottom:1px solid rgba(36,26,18,0.1);
+  background:var(--white);
+}
+.cart-header h3{ font-size:1.3rem; }
+.cart-close{
+  width:38px; height:38px; border-radius:50%;
+  background:var(--cream-2); font-size:1.1rem;
+  display:flex; align-items:center; justify-content:center;
+}
+.cart-body{ flex:1; overflow-y:auto; padding:18px 24px; }
+.cart-empty{ text-align:center; color:var(--charcoal-soft); padding:60px 10px; }
+.cart-item{
+  display:flex; gap:14px; padding:14px 0;
+  border-bottom:1px solid rgba(36,26,18,0.08);
+}
+.cart-item-img{
+  width:60px; height:60px; border-radius:14px;
+  background:var(--cream-2);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.6rem; flex-shrink:0; overflow:hidden;
+}
+.cart-item-img img{ width:100%; height:100%; object-fit:cover; }
+.cart-item-info{ flex:1; }
+.cart-item-info h4{ font-size:0.98rem; font-family:var(--font-body); font-weight:800; }
+.cart-item-price{ color:var(--chili-dark); font-weight:800; font-size:0.9rem; margin-top:2px; }
+.qty-control{
+  display:flex; align-items:center; gap:10px; margin-top:8px;
+}
+.qty-control button{
+  width:28px; height:28px; border-radius:50%;
+  background:var(--charcoal); color:var(--white);
+  font-weight:800; display:flex; align-items:center; justify-content:center;
+}
+.qty-control span{ font-weight:800; min-width:16px; text-align:center; }
+.remove-item{ color:var(--chili); font-size:0.8rem; font-weight:700; margin-top:6px; }
+
+.cart-footer{
+  padding:20px 24px 26px;
+  background: var(--white);
+  border-top:1px solid rgba(36,26,18,0.1);
+}
+.cart-total-row{
+  display:flex; justify-content:space-between; font-size:1.1rem; font-weight:800; margin-bottom:16px;
+}
+.cart-total-row span:last-child{ color:var(--chili-dark); }
+.delivery-note{ font-size:0.8rem; color:var(--charcoal-soft); margin-bottom:14px; }
+
+/* ==========================================================================
+   CHECKOUT FORM (inside drawer, step 2)
+   ========================================================================== */
+.checkout-form{ display:flex; flex-direction:column; gap:14px; }
+.field label{ display:block; font-size:0.85rem; font-weight:700; margin-bottom:6px; }
+.field input, .field textarea, .field select{
+  width:100%; padding:12px 14px;
+  border:2px solid rgba(36,26,18,0.15);
+  border-radius:12px; outline:none;
+  background:var(--white);
+}
+.field input:focus, .field textarea:focus, .field select:focus{ border-color: var(--chili); }
+.field textarea{ resize:vertical; min-height:64px; }
+.field-hint{ font-size:0.78rem; color:var(--charcoal-soft); margin-top:4px; }
+.back-link{ font-size:0.85rem; font-weight:700; color:var(--charcoal-soft); margin-bottom:6px; display:inline-block; }
+.form-error{ color:var(--chili-dark); font-size:0.82rem; display:none; }
+
+.delivery-status{
+  padding:12px 16px; border-radius:14px; font-size:0.88rem; font-weight:700;
+  display:none;
+}
+.delivery-status.show{ display:block; }
+.delivery-status.free{ background: rgba(75,122,81,0.14); color: var(--coriander); }
+.delivery-status.charged{ background: rgba(242,169,60,0.2); color:#8a5c0d; }
+.delivery-status.unavailable{ background: rgba(217,58,43,0.12); color: var(--chili-dark); }
+
+/* Visible keyboard focus for accessibility */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible{
+  outline: 3px solid var(--coriander);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   OWNER / ADMIN PANEL
+   ========================================================================== */
+.admin-overlay{
+  position:fixed; inset:0; background:rgba(36,26,18,0.55);
+  z-index:500; opacity:0; pointer-events:none; transition:opacity .25s ease;
+  display:flex; align-items:center; justify-content:center; padding:20px;
+}
+.admin-overlay.open{ opacity:1; pointer-events:auto; }
+.admin-modal{
+  background: var(--cream);
+  border-radius: var(--radius-card);
+  width:100%; max-width:520px;
+  max-height:88vh;
+  display:flex; flex-direction:column;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+  transform: translateY(20px); opacity:0;
+  transition: transform .25s ease, opacity .25s ease;
+}
+.admin-overlay.open .admin-modal{ transform: translateY(0); opacity:1; }
+.admin-header{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:20px 24px; background:var(--white);
+  border-bottom:1px solid rgba(36,26,18,0.1);
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+}
+.admin-header h3{ font-size:1.2rem; }
+.admin-body{ padding:20px 24px; overflow-y:auto; flex:1; }
+.admin-product-row{
+  display:flex; gap:12px; align-items:center;
+  padding:10px 0; border-bottom:1px solid rgba(36,26,18,0.08);
+}
+.admin-product-row .apr-emoji{ font-size:1.4rem; width:32px; text-align:center; }
+.admin-product-row .apr-info{ flex:1; }
+.admin-product-row .apr-info strong{ display:block; font-size:0.92rem; }
+.admin-product-row .apr-info span{ font-size:0.78rem; color:var(--charcoal-soft); }
+.admin-product-row .apr-edit{ color:var(--coriander); font-weight:700; font-size:0.8rem; }
+.admin-product-row .apr-delete{ color:var(--chili); font-weight:700; font-size:0.8rem; }
+.admin-empty-note{ font-size:0.85rem; color:var(--charcoal-soft); padding:10px 0; }
+.admin-divider{ margin: 18px 0; border:none; border-top:1px dashed rgba(36,26,18,0.2); }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVBAR
+     ============================================================ -->
+<header>
+  <nav class="nav">
+    <a href="#home" class="brand">
+      <span class="brand-badge">🍛</span>
+      Nadwa<span class="dot">Bite</span>
+    </a>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#menu">Menu</a>
+      <a href="#how">How It Works</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <button class="cart-btn" id="openCartBtn" aria-label="Open cart">
+        🛒<span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">☰</button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home">Home</a>
+    <a href="#menu">Menu</a>
+    <a href="#how">How It Works</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</header>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="home">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow-tag">📍 Nadwasarai, Mau, Uttar Pradesh</span>
+      <h1>Your favourite <span class="hero-highlight">local food</span>, delivered hot to your door</h1>
+      <p class="hero-tagline">Har Bite Mein Taste, Ghar Tak Fast Delivery</p>
+      <p class="lead">NadwaBite is a local food-ordering &amp; home-delivery service. Tell us what you're craving — Samosa, Pizza, Biryani, Momos and more — and we'll arrange it from the best local sellers near you and deliver it fresh, fast.</p>
+      <div class="hero-ctas">
+        <a href="#" class="btn btn-chili" id="heroWhatsappBtn">💬 Order on WhatsApp</a>
+        <a href="#menu" class="btn btn-outline">View Menu</a>
+      </div>
+      <div class="hero-meta">
+        <div><strong id="heroHours">7 AM – 7 PM</strong><span>Open daily</span></div>
+        <div><strong id="heroFreeKm">2 km</strong><span>Free delivery zone</span></div>
+        <div><strong>Cycle</strong><span>Delivery, up to <span id="heroMaxKm">8</span> km</span></div>
+      </div>
+    </div>
+    <div class="tiffin">
+      <div class="tiffin-handle"></div>
+      <div class="tiffin-stack">
+        <div class="tiffin-tier">🍕 🍔</div>
+        <div class="tiffin-tier">🍛 🥟</div>
+        <div class="tiffin-tier">🍟 🌯</div>
+      </div>
+      <div class="tiffin-badge"><strong>Fast</strong><span>DELIVERY</span></div>
+    </div>
+  </div>
+</section>
+<span class="zigzag-divider zigzag-cream-to-white"></span>
+
+<!-- ============================================================
+     HOW IT WORKS
+     ============================================================ -->
+<section class="section" id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow-tag">Simple &amp; quick</span>
+      <h2>How NadwaBite works</h2>
+      <p>No app to download, no restaurant visit. Just pick, order, and relax while we handle the rest.</p>
+    </div>
+    <div class="steps">
+      <div class="step-card">
+        <div class="step-icon">🍽️</div>
+        <div class="step-num">1</div>
+        <h3>Choose your food</h3>
+        <p>Browse the menu and pick your favourite items and quantities.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-icon">🛒</div>
+        <div class="step-num">2</div>
+        <h3>Place your order</h3>
+        <p>Add your details and send your order straight to us on WhatsApp.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-icon">🏪</div>
+        <div class="step-num">3</div>
+        <h3>We arrange your order</h3>
+        <p>We collect your order fresh from trusted local food sellers nearby.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-icon">🚲</div>
+        <div class="step-num">4</div>
+        <h3>Get it delivered</h3>
+        <p>Your food is delivered hot and fresh, by cycle, right to your doorstep.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     MENU
+     ============================================================ -->
+<section class="section" id="menu" style="background:var(--white);">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow-tag">The menu</span>
+      <h2>What are you craving today?</h2>
+      <p>Search or filter by category. Add items to your cart and order in a couple of taps.</p>
+    </div>
+
+    <div class="menu-toolbar">
+      <div class="category-pills" id="categoryPills"></div>
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="Search for Samosa, Pizza, Biryani...">
+      </div>
+    </div>
+
+    <div class="menu-grid" id="menuGrid"></div>
+    <div class="no-results" id="noResults" style="display:none;">No items found. Try a different search or category 🍽️</div>
+  </div>
+</section>
+<span class="zigzag-divider zigzag-white-to-cream"></span>
+
+<!-- ============================================================
+     ABOUT
+     ============================================================ -->
+<section class="section about-section" id="about">
+  <div class="wrap about-grid">
+    <div class="about-copy">
+      <span class="eyebrow-tag">Our story</span>
+      <h2>A local delivery startup, built from Nadwasarai</h2>
+      <p>NadwaBite is a local food-ordering and home-delivery startup started by <strong>Himanshu Gautam</strong>. We don't run a restaurant or kitchen — instead, we take your order, arrange the food fresh from trusted local sellers and the market nearby, and deliver it straight to your home by cycle.</p>
+      <p>It's a simple idea: give people in Nadwasarai and around Mau an easy way to order the fast food they love, without needing to step out.</p>
+      <div class="about-points">
+        <div class="about-point">
+          <span class="ico">🤝</span>
+          <div><strong>Sourced locally</strong><span>Every order is arranged fresh from nearby local food sellers.</span></div>
+        </div>
+        <div class="about-point">
+          <span class="ico">📱</span>
+          <div><strong>Order on WhatsApp</strong><span>No app, no login — just message us and we take it from there.</span></div>
+        </div>
+        <div class="about-point">
+          <span class="ico">🚲</span>
+          <div><strong>Cycle delivery</strong><span>Free within 2 km, delivered up to 8 km from Nadwasarai.</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="about-card">
+      <h3>Delivery information</h3>
+      <div class="info-row"><span>Service area</span><span id="deliveryArea">Nadwasarai &amp; nearby, Mau, UP</span></div>
+      <div class="info-row"><span>Delivery mode</span><span>By cycle (no bike)</span></div>
+      <div class="info-row"><span>Free delivery</span><span id="freeZoneText">Within 2 km</span></div>
+      <div class="info-row"><span>Delivery charge</span><span id="chargedZoneText">₹20, from 2–8 km</span></div>
+      <div class="info-row"><span>Beyond 8 km</span><span>Delivery not available</span></div>
+      <div class="info-row"><span>Business hours</span><span id="businessHours">7:00 AM – 7:00 PM</span></div>
+      <div class="info-row"><span>Payment</span><span>Cash on delivery</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT
+     ============================================================ -->
+<section class="section contact-section" id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow-tag" style="background:rgba(255,246,231,0.1); color:var(--turmeric); border-color:var(--turmeric);">Get in touch</span>
+      <h2>Contact NadwaBite</h2>
+      <p>Have a question, or want to place a large order? Reach out anytime during business hours.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="ico">👤</div>
+        <h4>Owner</h4>
+        <p>Himanshu Gautam</p>
+      </div>
+      <div class="contact-card">
+        <div class="ico">📞</div>
+        <h4>Phone</h4>
+        <a href="tel:+919616384410">9616384410</a>
+      </div>
+      <div class="contact-card">
+        <div class="ico">💬</div>
+        <h4>WhatsApp</h4>
+        <a href="#" id="contactWhatsappLink">9616384410</a>
+      </div>
+      <div class="contact-card">
+        <div class="ico">✉️</div>
+        <h4>Email</h4>
+        <a href="mailto:himanshu.gautam.653104@gmail.com">himanshu.gautam.653104@gmail.com</a>
+      </div>
+      <div class="contact-card">
+        <div class="ico">📍</div>
+        <h4>Location</h4>
+        <p>Nadwasarai, Mau, Uttar Pradesh</p>
+      </div>
+      <div class="contact-card">
+        <div class="ico">🕒</div>
+        <h4>Business hours</h4>
+        <p>7:00 AM – 7:00 PM, daily</p>
+      </div>
+    </div>
+    <a href="https://instagram.com/drx_himanshu.rao_" target="_blank" rel="noopener" class="instagram-btn">📸 Follow us on Instagram — @drx_himanshu.rao_</a>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">NadwaBite</div>
+        <div class="footer-tagline">Har Bite Mein Taste, Ghar Tak Fast Delivery</div>
+      </div>
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="#how">How It Works</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 NadwaBite. All rights reserved. Owner: Himanshu Gautam</span>
+      <button class="owner-login-link" id="ownerLoginBtn">Owner Login — Manage Menu</button>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     FLOATING WHATSAPP BUTTON
+     ============================================================ -->
+<a href="#" id="fabWhatsapp" class="fab-whatsapp" aria-label="Order on WhatsApp">💬</a>
+
+<!-- ============================================================
+     CART DRAWER
+     ============================================================ -->
+<div class="overlay" id="overlay"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
+  <div class="cart-header">
+    <h3 id="cartTitle">Your Cart</h3>
+    <button class="cart-close" id="closeCartBtn" aria-label="Close cart">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody"></div>
+  <div class="cart-footer" id="cartFooter"></div>
+</aside>
+
+<!-- ============================================================
+     OWNER / ADMIN PANEL — add new menu items anytime
+     ============================================================ -->
+<div class="admin-overlay" id="adminOverlay">
+  <div class="admin-modal">
+    <div class="admin-header">
+      <h3 id="adminTitle">Owner Login</h3>
+      <button class="cart-close" id="closeAdminBtn" aria-label="Close">✕</button>
+    </div>
+    <div class="admin-body" id="adminBody"></div>
+  </div>
+</div>
+
+<script>
+/* ==========================================================================
+   ⚙️ NADWABITE SETTINGS — EDIT THESE VALUES ANYTIME
+   ========================================================================== */
+const SETTINGS = {
+  businessName: "NadwaBite",
+  tagline: "Har Bite Mein Taste, Ghar Tak Fast Delivery",
+  ownerName: "Himanshu Gautam",
+  phone: "9616384410",              // Owner phone (10 digit, no +91)
+  whatsappNumber: "9616384410",     // WhatsApp number used for orders (10 digit, no +91)
+  countryCode: "91",                // India country code, used for wa.me links
+  email: "himanshu.gautam.653104@gmail.com",
+  instagram: "drx_himanshu.rao_",
+  businessHoursText: "7:00 AM – 7:00 PM",
+  deliveryArea: "Nadwasarai & nearby, Mau, Uttar Pradesh",
+
+  // 🚲 DELIVERY RULES (cycle delivery only, no bike):
+  freeDeliveryUpToKm: 2,   // 0 to this distance = FREE delivery
+  maxDeliveryKm: 8,        // beyond this distance = delivery NOT available
+  deliveryCharge: 20,      // ₹ charged for distance between freeDeliveryUpToKm and maxDeliveryKm
+
+  adminPassword: "nadwabite123", // EDIT THIS to your own password for the Owner Login panel
+};
+
+/* ==========================================================================
+   🍽️ BASE MENU ITEMS — EDIT / ADD / REMOVE HERE IN CODE IF YOU WANT
+   You can ALSO add new items anytime without touching code — use the
+   "Owner Login — Manage Menu" link at the bottom of the website.
+   Items added that way are saved in this browser automatically.
+   Each product needs: id, name, category, desc, price, image (URL or "")
+   Leave "image" as "" to show an emoji placeholder instead of a photo.
+   Categories: Snacks, Pizza, Chinese, Biryani, Burgers, Beverages, Other
+   ========================================================================== */
+const PRODUCTS = [
+  { id: 1,  name: "Samosa (2 pcs)",        category: "Snacks",    desc: "Crispy fried pastry with spiced potato filling.",     price: 30,  image: "", emoji: "🥟" },
+  { id: 2,  name: "Veg Manchurian",        category: "Chinese",   desc: "Fried veg balls tossed in tangy Indo-Chinese sauce.", price: 110, image: "", emoji: "🥘" },
+  { id: 3,  name: "Margherita Pizza",      category: "Pizza",     desc: "Classic cheese pizza with a tangy tomato base.",      price: 150, image: "", emoji: "🍕" },
+  { id: 4,  name: "Chicken Biryani",       category: "Biryani",   desc: "Fragrant basmati rice layered with spiced chicken.",  price: 180, image: "", emoji: "🍛" },
+  { id: 5,  name: "Veg Biryani",           category: "Biryani",   desc: "Aromatic rice cooked with mixed vegetables & spices.",price: 130, image: "", emoji: "🍚" },
+  { id: 6,  name: "Classic Cheese Burger", category: "Burgers",   desc: "Juicy patty, melted cheese, fresh veggies, soft bun.",price: 90,  image: "", emoji: "🍔" },
+  { id: 7,  name: "Chowmein",              category: "Chinese",   desc: "Stir-fried noodles with vegetables and spices.",      price: 80,  image: "", emoji: "🍜" },
+  { id: 8,  name: "Veg Momos (8 pcs)",     category: "Snacks",    desc: "Steamed dumplings served with spicy red chutney.",    price: 70,  image: "", emoji: "🥟" },
+  { id: 9,  name: "Paneer Roll",           category: "Snacks",    desc: "Soft rumali roti rolled with spiced paneer filling.", price: 75,  image: "", emoji: "🌯" },
+  { id: 10, name: "French Fries",          category: "Snacks",    desc: "Crispy golden fries, salted to perfection.",          price: 60,  image: "", emoji: "🍟" },
+  { id: 11, name: "Cold Coffee",           category: "Beverages", desc: "Chilled, creamy coffee blended with ice cream.",      price: 60,  image: "", emoji: "🥤" },
+  { id: 12, name: "Masala Cold Drink Combo", category: "Beverages", desc: "Choice of soft drink with a snack of your choice.", price: 50,  image: "", emoji: "🧃" },
+];
+
+const CATEGORIES = ["All", "Snacks", "Pizza", "Chinese", "Biryani", "Burgers", "Beverages", "Other"];
+const CATEGORY_EMOJIS = { Snacks:"🥟", Pizza:"🍕", Chinese:"🍜", Biryani:"🍛", Burgers:"🍔", Beverages:"🥤", Other:"🍽️" };
+
+/* ==========================================================================
+   ALL PRODUCTS — now fully editable (not just newly added ones).
+   First time the page loads, it copies the base PRODUCTS list into
+   the browser's storage; after that, every edit/delete/add happens
+   on this saved copy, so the original PRODUCTS list above stays as
+   your backup/reset reference.
+   ========================================================================== */
+let allProducts = JSON.parse(localStorage.getItem("nadwabite_products") || "null");
+if (!allProducts){
+  allProducts = JSON.parse(JSON.stringify(PRODUCTS));
+}
+let adminUnlocked = false;
+let editingProductId = null;
+
+function saveAllProducts(){
+  localStorage.setItem("nadwabite_products", JSON.stringify(allProducts));
+}
+
+function isDataUrl(str){
+  return typeof str === "string" && str.indexOf("data:") === 0;
+}
+
+function getAllProducts(){
+  return allProducts;
+}
+
+/* ==========================================================================
+   APPLY SETTINGS TO PAGE TEXT
+   ========================================================================== */
+document.getElementById("heroHours").textContent = SETTINGS.businessHoursText;
+document.getElementById("businessHours").textContent = SETTINGS.businessHoursText;
+document.getElementById("deliveryArea").textContent = SETTINGS.deliveryArea;
+document.getElementById("heroFreeKm").textContent = SETTINGS.freeDeliveryUpToKm + " km";
+document.getElementById("heroMaxKm").textContent = SETTINGS.maxDeliveryKm;
+document.getElementById("freeZoneText").textContent = "Within " + SETTINGS.freeDeliveryUpToKm + " km";
+document.getElementById("chargedZoneText").textContent =
+  "₹" + SETTINGS.deliveryCharge + ", from " + SETTINGS.freeDeliveryUpToKm + "–" + SETTINGS.maxDeliveryKm + " km";
+
+function waLink(message){
+  return "https://wa.me/" + SETTINGS.countryCode + SETTINGS.whatsappNumber + "?text=" + encodeURIComponent(message);
+}
+const defaultGreeting = "Hi NadwaBite! I'd like to place an order.";
+document.getElementById("heroWhatsappBtn").href = waLink(defaultGreeting);
+document.getElementById("fabWhatsapp").href = waLink(defaultGreeting);
+document.getElementById("contactWhatsappLink").href = waLink(defaultGreeting);
+
+/* ==========================================================================
+   MOBILE NAV
+   ========================================================================== */
+const hamburgerBtn = document.getElementById("hamburgerBtn");
+const mobileMenu = document.getElementById("mobileMenu");
+hamburgerBtn.addEventListener("click", () => mobileMenu.classList.toggle("open"));
+mobileMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => mobileMenu.classList.remove("open")));
+
+/* ==========================================================================
+   CATEGORY PILLS
+   ========================================================================== */
+let activeCategory = "All";
+let searchTerm = "";
+
+const categoryPillsEl = document.getElementById("categoryPills");
+function renderCategoryPills(){
+  categoryPillsEl.innerHTML = "";
+  CATEGORIES.forEach(cat => {
+    const btn = document.createElement("button");
+    btn.className = "pill" + (cat === activeCategory ? " active" : "");
+    btn.textContent = cat;
+    btn.addEventListener("click", () => {
+      activeCategory = cat;
+      renderCategoryPills();
+      renderMenu();
+    });
+    categoryPillsEl.appendChild(btn);
+  });
+}
+renderCategoryPills();
+
+document.getElementById("searchInput").addEventListener("input", (e) => {
+  searchTerm = e.target.value.trim().toLowerCase();
+  renderMenu();
+});
+
+/* ==========================================================================
+   RENDER MENU
+   ========================================================================== */
+const menuGrid = document.getElementById("menuGrid");
+const noResults = document.getElementById("noResults");
+
+function renderMenu(){
+  const filtered = getAllProducts().filter(p => {
+    const matchesCategory = activeCategory === "All" || p.category === activeCategory;
+    const matchesSearch = !searchTerm || p.name.toLowerCase().includes(searchTerm) || p.desc.toLowerCase().includes(searchTerm);
+    return matchesCategory && matchesSearch;
+  });
+
+  menuGrid.innerHTML = "";
+  noResults.style.display = filtered.length ? "none" : "block";
+
+  filtered.forEach(p => {
+    const card = document.createElement("div");
+    card.className = "food-card";
+    card.innerHTML = `
+      <div class="card-corner"></div>
+      <div class="food-image" style="background:var(--cream-2);">
+        <span class="food-cat-tag">${p.category}</span>
+        ${adminUnlocked ? `<div class="food-admin-controls">
+            <button class="food-admin-btn" data-edit="${p.id}" title="Edit">✎</button>
+            <button class="food-admin-btn" data-delete="${p.id}" title="Delete">🗑</button>
+          </div>` : ''}
+        ${p.image ? `<img src="${p.image}" alt="${p.name}">` : `<span>${p.emoji || "🍽️"}</span>`}
+      </div>
+      <div class="food-body">
+        <h3>${p.name}</h3>
+        <p class="desc">${p.desc}</p>
+        <div class="food-footer">
+          <span class="food-price">₹${p.price}</span>
+          <button class="btn btn-chili btn-small" data-add="${p.id}">Order Now</button>
+        </div>
+      </div>
+    `;
+    menuGrid.appendChild(card);
+  });
+
+  menuGrid.querySelectorAll("[data-add]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      addToCart(parseInt(btn.getAttribute("data-add")));
+      openCart();
+    });
+  });
+  menuGrid.querySelectorAll("[data-edit]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      openAdminForEdit(parseInt(btn.getAttribute("data-edit")));
+    });
+  });
+  menuGrid.querySelectorAll("[data-delete]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (!confirm("Is item ko menu se hatana hai?")) return;
+      allProducts = allProducts.filter(p => p.id !== parseInt(btn.getAttribute("data-delete")));
+      saveAllProducts();
+      renderMenu();
+    });
+  });
+}
+renderMenu();
+
+/* ==========================================================================
+   CART STATE (persisted in this browser via localStorage)
+   ========================================================================== */
+let cart = JSON.parse(localStorage.getItem("nadwabite_cart") || "[]");
+let checkoutStep = "cart"; // "cart" | "details"
+
+function saveCart(){
+  localStorage.setItem("nadwabite_cart", JSON.stringify(cart));
+  updateCartCount();
+}
+
+function addToCart(productId){
+  const existing = cart.find(i => i.id === productId);
+  if (existing){ existing.qty += 1; }
+  else { cart.push({ id: productId, qty: 1 }); }
+  saveCart();
+  renderCartDrawer();
+}
+
+function updateQty(productId, delta){
+  const item = cart.find(i => i.id === productId);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0){ cart = cart.filter(i => i.id !== productId); }
+  saveCart();
+  renderCartDrawer();
+}
+
+function removeFromCart(productId){
+  cart = cart.filter(i => i.id !== productId);
+  saveCart();
+  renderCartDrawer();
+}
+
+function cartSubtotal(){
+  return cart.reduce((sum, item) => {
+    const product = getAllProducts().find(p => p.id === item.id);
+    return sum + (product ? product.price * item.qty : 0);
+  }, 0);
+}
+
+function updateCartCount(){
+  const totalQty = cart.reduce((sum, i) => sum + i.qty, 0);
+  document.getElementById("cartCount").textContent = totalQty;
+}
+updateCartCount();
+
+/* ==========================================================================
+   DELIVERY CALCULATION — based on distance (in km) from Nadwasarai
+   ========================================================================== */
+function getDeliveryInfo(distanceKm){
+  if (distanceKm === null || distanceKm === undefined || isNaN(distanceKm) || distanceKm < 0){
+    return { status: "unknown", charge: 0, message: "" };
+  }
+  if (distanceKm <= SETTINGS.freeDeliveryUpToKm){
+    return { status: "free", charge: 0, message: "🎉 You're within " + SETTINGS.freeDeliveryUpToKm + " km — free delivery!" };
+  }
+  if (distanceKm <= SETTINGS.maxDeliveryKm){
+    return { status: "charged", charge: SETTINGS.deliveryCharge, message: "🚲 Delivery charge for this distance: ₹" + SETTINGS.deliveryCharge };
+  }
+  return { status: "unavailable", charge: 0, message: "😔 Sorry, we currently deliver only up to " + SETTINGS.maxDeliveryKm + " km (by cycle). Delivery isn't available at this distance." };
+}
+
+/* ==========================================================================
+   CART DRAWER OPEN/CLOSE
+   ========================================================================== */
+const cartDrawer = document.getElementById("cartDrawer");
+const overlay = document.getElementById("overlay");
+
+function openCart(){
+  checkoutStep = "cart";
+  renderCartDrawer();
+  cartDrawer.classList.add("open");
+  overlay.classList.add("open");
+}
+function closeCart(){
+  cartDrawer.classList.remove("open");
+  overlay.classList.remove("open");
+}
+document.getElementById("openCartBtn").addEventListener("click", openCart);
+document.getElementById("closeCartBtn").addEventListener("click", closeCart);
+overlay.addEventListener("click", closeCart);
+
+/* ==========================================================================
+   RENDER CART DRAWER (cart view + checkout-details view)
+   ========================================================================== */
+function renderCartDrawer(){
+  const cartBody = document.getElementById("cartBody");
+  const cartFooter = document.getElementById("cartFooter");
+  const cartTitle = document.getElementById("cartTitle");
+
+  if (checkoutStep === "details"){
+    cartTitle.textContent = "Your Details";
+    cartBody.innerHTML = `
+      <a href="#" class="back-link" id="backToCart">← Back to cart</a>
+      <div class="checkout-form">
+        <div class="field">
+          <label for="custName">Full name *</label>
+          <input type="text" id="custName" placeholder="Your name">
+        </div>
+        <div class="field">
+          <label for="custPhone">Phone number *</label>
+          <input type="tel" id="custPhone" placeholder="10-digit mobile number">
+        </div>
+        <div class="field">
+          <label for="custAddress">Delivery address *</label>
+          <textarea id="custAddress" placeholder="House no., street, landmark, village/area"></textarea>
+        </div>
+        <div class="field">
+          <label for="custDistance">Approximate distance from Nadwasarai (in km) *</label>
+          <input type="number" id="custDistance" min="0" step="0.1" placeholder="e.g. 1.5">
+          <p class="field-hint">Free within ${SETTINGS.freeDeliveryUpToKm} km · ₹${SETTINGS.deliveryCharge} charge up to ${SETTINGS.maxDeliveryKm} km · not available beyond ${SETTINGS.maxDeliveryKm} km (cycle delivery)</p>
+          <div class="delivery-status" id="deliveryStatus"></div>
+        </div>
+        <div class="field">
+          <label for="custInstructions">Special instructions (optional)</label>
+          <textarea id="custInstructions" placeholder="Less spicy, no onion, call before delivery, etc."></textarea>
+        </div>
+        <p class="form-error" id="formError">Please fill in your name, phone, address and distance to continue.</p>
+      </div>
+    `;
+    document.getElementById("backToCart").addEventListener("click", (e) => {
+      e.preventDefault();
+      checkoutStep = "cart";
+      renderCartDrawer();
+    });
+    document.getElementById("custDistance").addEventListener("input", updateCheckoutTotals);
+
+    updateCheckoutTotals();
+    return;
+  }
+
+  // --- Cart view ---
+  cartTitle.textContent = "Your Cart";
+
+  if (cart.length === 0){
+    cartBody.innerHTML = `<div class="cart-empty">🛒<br>Your cart is empty.<br>Add something tasty from the menu!</div>`;
+    cartFooter.innerHTML = "";
+    return;
+  }
+
+  cartBody.innerHTML = "";
+  cart.forEach(item => {
+    const product = getAllProducts().find(p => p.id === item.id);
+    if (!product) return;
+    const row = document.createElement("div");
+    row.className = "cart-item";
+    row.innerHTML = `
+      <div class="cart-item-img">${product.image ? `<img src="${product.image}" alt="${product.name}">` : (product.emoji || "🍽️")}</div>
+      <div class="cart-item-info">
+        <h4>${product.name}</h4>
+        <div class="cart-item-price">₹${product.price} × ${item.qty} = ₹${product.price * item.qty}</div>
+        <div class="qty-control">
+          <button data-minus="${product.id}">−</button>
+          <span>${item.qty}</span>
+          <button data-plus="${product.id}">+</button>
+        </div>
+        <div class="remove-item" data-remove="${product.id}">Remove</div>
+      </div>
+    `;
+    cartBody.appendChild(row);
+  });
+
+  cartBody.querySelectorAll("[data-plus]").forEach(b => b.addEventListener("click", () => updateQty(parseInt(b.getAttribute("data-plus")), 1)));
+  cartBody.querySelectorAll("[data-minus]").forEach(b => b.addEventListener("click", () => updateQty(parseInt(b.getAttribute("data-minus")), -1)));
+  cartBody.querySelectorAll("[data-remove]").forEach(b => b.addEventListener("click", () => removeFromCart(parseInt(b.getAttribute("data-remove")))));
+
+  const subtotal = cartSubtotal();
+  cartFooter.innerHTML = `
+    <div class="cart-total-row"><span>Subtotal</span><span>₹${subtotal}</span></div>
+    <p class="delivery-note">Delivery charge depends on your distance from Nadwasarai — you'll enter it on the next step.</p>
+    <button class="btn btn-chili btn-block" id="proceedBtn">Proceed to Order</button>
+  `;
+  document.getElementById("proceedBtn").addEventListener("click", () => {
+    checkoutStep = "details";
+    renderCartDrawer();
+  });
+}
+
+/* Updates the live delivery status + total shown while the customer types a distance */
+function updateCheckoutTotals(){
+  const distanceInput = document.getElementById("custDistance");
+  const distance = distanceInput ? parseFloat(distanceInput.value) : NaN;
+  const deliveryInfo = getDeliveryInfo(distance);
+  const subtotal = cartSubtotal();
+
+  const statusEl = document.getElementById("deliveryStatus");
+  statusEl.className = "delivery-status" + (deliveryInfo.status !== "unknown" ? " show" : "");
+  if (deliveryInfo.status === "free") statusEl.classList.add("free");
+  if (deliveryInfo.status === "charged") statusEl.classList.add("charged");
+  if (deliveryInfo.status === "unavailable") statusEl.classList.add("unavailable");
+  statusEl.textContent = deliveryInfo.message;
+
+  const total = subtotal + deliveryInfo.charge;
+  const cartFooter = document.getElementById("cartFooter");
+  const canSend = deliveryInfo.status === "free" || deliveryInfo.status === "charged";
+
+  cartFooter.innerHTML = `
+    <div class="cart-total-row"><span>Total to pay</span><span>₹${total}</span></div>
+    <button class="btn btn-chili btn-block" id="sendOrderBtn" ${canSend ? "" : "disabled"}>💬 Send Order on WhatsApp</button>
+  `;
+  document.getElementById("sendOrderBtn").addEventListener("click", sendOrderToWhatsapp);
+}
+
+/* ==========================================================================
+   SEND ORDER — builds the WhatsApp message and opens WhatsApp
+   ========================================================================== */
+function sendOrderToWhatsapp(){
+  const name = document.getElementById("custName").value.trim();
+  const phone = document.getElementById("custPhone").value.trim();
+  const address = document.getElementById("custAddress").value.trim();
+  const distance = parseFloat(document.getElementById("custDistance").value);
+  const instructions = document.getElementById("custInstructions").value.trim();
+  const formError = document.getElementById("formError");
+
+  if (!name || !phone || !address || isNaN(distance)){
+    formError.style.display = "block";
+    return;
+  }
+  const deliveryInfo = getDeliveryInfo(distance);
+  if (deliveryInfo.status === "unavailable"){
+    formError.textContent = deliveryInfo.message;
+    formError.style.display = "block";
+    return;
+  }
+  formError.style.display = "none";
+
+  const subtotal = cartSubtotal();
+  const total = subtotal + deliveryInfo.charge;
+
+  let itemsText = cart.map(item => {
+    const product = getAllProducts().find(p => p.id === item.id);
+    return `• ${product.name} x${item.qty} = ₹${product.price * item.qty}`;
+  }).join("\n");
+
+  const deliveryLine = deliveryInfo.status === "free"
+    ? "Free (within " + SETTINGS.freeDeliveryUpToKm + " km)"
+    : "₹" + deliveryInfo.charge + " (" + distance + " km)";
+
+  const message =
+`🍽️ *New Order — NadwaBite*
+
+*Name:* ${name}
+*Phone:* ${phone}
+*Address:* ${address}
+*Distance from Nadwasarai:* ${distance} km
+
+*Order Items:*
+${itemsText}
+
+*Subtotal:* ₹${subtotal}
+*Delivery charge:* ${deliveryLine}
+*Total:* ₹${total}
+
+*Instructions:* ${instructions || "None"}`;
+
+  window.open(waLink(message), "_blank");
+
+  // Clear cart after sending
+  cart = [];
+  saveCart();
+  checkoutStep = "cart";
+  renderCartDrawer();
+}
+
+/* ==========================================================================
+   OWNER / ADMIN PANEL — add new menu items anytime, no code editing needed
+   ========================================================================== */
+const adminOverlay = document.getElementById("adminOverlay");
+const adminBody = document.getElementById("adminBody");
+const adminTitle = document.getElementById("adminTitle");
+
+document.getElementById("ownerLoginBtn").addEventListener("click", openAdmin);
+document.getElementById("closeAdminBtn").addEventListener("click", closeAdmin);
+adminOverlay.addEventListener("click", (e) => { if (e.target === adminOverlay) closeAdmin(); });
+
+function openAdmin(){
+  editingProductId = null;
+  adminOverlay.classList.add("open");
+  if (adminUnlocked){ renderAdminPanel(); } else { renderAdminLogin(); }
+}
+function openAdminForEdit(id){
+  editingProductId = id;
+  adminOverlay.classList.add("open");
+  if (adminUnlocked){ renderAdminPanel(); } else { renderAdminLogin(); }
+}
+function closeAdmin(){
+  adminOverlay.classList.remove("open");
+}
+
+function renderAdminLogin(){
+  adminTitle.textContent = "Owner Login";
+  adminBody.innerHTML = `
+    <div class="checkout-form">
+      <div class="field">
+        <label for="adminPasswordInput">Enter your password</label>
+        <input type="password" id="adminPasswordInput" placeholder="Password">
+      </div>
+      <p class="form-error" id="adminLoginError">Incorrect password. Please try again.</p>
+      <button class="btn btn-chili btn-block" id="adminLoginBtn">Unlock</button>
+    </div>
+  `;
+  document.getElementById("adminLoginBtn").addEventListener("click", () => {
+    const entered = document.getElementById("adminPasswordInput").value;
+    if (entered === SETTINGS.adminPassword){
+      adminUnlocked = true;
+      renderMenu();
+      renderAdminPanel();
+    } else {
+      document.getElementById("adminLoginError").style.display = "block";
+    }
+  });
+  document.getElementById("adminPasswordInput").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") document.getElementById("adminLoginBtn").click();
+  });
+}
+
+function renderAdminPanel(){
+  const editingProduct = editingProductId ? allProducts.find(p => p.id === editingProductId) : null;
+  adminTitle.textContent = editingProduct ? "Edit Item" : "Manage Menu";
+
+  const categoryOptions = CATEGORIES.filter(c => c !== "All")
+    .map(c => `<option value="${c}" ${editingProduct && editingProduct.category === c ? "selected" : ""}>${c}</option>`).join("");
+
+  const existingImage = editingProduct ? editingProduct.image : "";
+  const existingImageIsUrl = existingImage && !isDataUrl(existingImage);
+
+  adminBody.innerHTML = `
+    <div class="checkout-form">
+      <div class="field">
+        <label for="newFoodName">Food name *</label>
+        <input type="text" id="newFoodName" placeholder="e.g. Egg Roll" value="${editingProduct ? editingProduct.name.replace(/"/g,'&quot;') : ''}">
+      </div>
+      <div class="field">
+        <label for="newFoodCategory">Category *</label>
+        <select id="newFoodCategory">${categoryOptions}</select>
+      </div>
+      <div class="field">
+        <label for="newFoodDesc">Description *</label>
+        <textarea id="newFoodDesc" placeholder="Short, tasty description">${editingProduct ? editingProduct.desc : ''}</textarea>
+      </div>
+      <div class="field">
+        <label for="newFoodPrice">Price (₹) *</label>
+        <input type="number" id="newFoodPrice" min="0" step="1" placeholder="e.g. 80" value="${editingProduct ? editingProduct.price : ''}">
+      </div>
+      <div class="field">
+        <label for="newFoodImageFile">Photo upload karein (optional)</label>
+        <input type="file" id="newFoodImageFile" accept="image/*">
+        <img id="newFoodImagePreview" src="${existingImage || ''}" style="max-width:110px; margin-top:10px; border-radius:12px; ${existingImage ? '' : 'display:none;'}">
+      </div>
+      <div class="field">
+        <label for="newFoodImage">Ya image ka link paste karein (optional)</label>
+        <input type="text" id="newFoodImage" placeholder="Paste an image link" value="${existingImageIsUrl ? existingImage : ''}">
+        <p class="field-hint">Photo upload aur link, dono mein se koi ek use karein. Kuch na diya toh emoji dikhega. Kuch na badalna ho toh yeh sab khaali chhod dein.</p>
+      </div>
+      <p class="form-error" id="newFoodError">Please fill in name, description and a valid price.</p>
+      <div style="display:flex; gap:10px;">
+        <button class="btn btn-chili btn-block" id="addFoodBtn">${editingProduct ? "💾 Save Changes" : "➕ Add to Menu"}</button>
+      </div>
+      ${editingProduct ? '<button class="btn btn-outline btn-block" id="cancelEditBtn" style="margin-top:10px;">Cancel</button>' : ''}
+    </div>
+
+    <hr class="admin-divider">
+    <h3 style="font-size:1rem; margin-bottom:8px;">Aapke saare menu items</h3>
+    <div id="customProductList"></div>
+  `;
+
+  let pendingUploadedImage = existingImage && isDataUrl(existingImage) ? existingImage : "";
+
+  document.getElementById("newFoodImageFile").addEventListener("change", function(e){
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev){
+      pendingUploadedImage = ev.target.result;
+      const preview = document.getElementById("newFoodImagePreview");
+      preview.src = pendingUploadedImage;
+      preview.style.display = "block";
+    };
+    reader.readAsDataURL(file);
+  });
+
+  document.getElementById("addFoodBtn").addEventListener("click", () => {
+    const name = document.getElementById("newFoodName").value.trim();
+    const category = document.getElementById("newFoodCategory").value;
+    const desc = document.getElementById("newFoodDesc").value.trim();
+    const price = parseFloat(document.getElementById("newFoodPrice").value);
+    const pastedUrl = document.getElementById("newFoodImage").value.trim();
+    const errorEl = document.getElementById("newFoodError");
+
+    if (!name || !desc || isNaN(price) || price < 0){
+      errorEl.style.display = "block";
+      return;
+    }
+    errorEl.style.display = "none";
+
+    const finalImage = pendingUploadedImage || pastedUrl || "";
+
+    if (editingProduct){
+      editingProduct.name = name;
+      editingProduct.category = category;
+      editingProduct.desc = desc;
+      editingProduct.price = price;
+      editingProduct.image = finalImage;
+      editingProduct.emoji = CATEGORY_EMOJIS[category] || "🍽️";
+    } else {
+      const newProduct = {
+        id: Date.now(),
+        name, category, desc, price,
+        image: finalImage,
+        emoji: CATEGORY_EMOJIS[category] || "🍽️"
+      };
+      allProducts.push(newProduct);
+    }
+    saveAllProducts();
+    editingProductId = null;
+    renderMenu();
+    renderAdminPanel();
+  });
+
+  const cancelBtn = document.getElementById("cancelEditBtn");
+  if (cancelBtn){
+    cancelBtn.addEventListener("click", () => {
+      editingProductId = null;
+      renderAdminPanel();
+    });
+  }
+
+  renderCustomProductList();
+}
+
+function renderCustomProductList(){
+  const listEl = document.getElementById("customProductList");
+  if (!listEl) return;
+  if (allProducts.length === 0){
+    listEl.innerHTML = `<p class="admin-empty-note">Abhi koi item nahi hai.</p>`;
+    return;
+  }
+  listEl.innerHTML = "";
+  allProducts.forEach(p => {
+    const row = document.createElement("div");
+    row.className = "admin-product-row";
+    row.innerHTML = `
+      <div class="apr-emoji">${p.image ? `<img src="${p.image}" style="width:32px;height:32px;border-radius:8px;object-fit:cover;">` : (p.emoji || "🍽️")}</div>
+      <div class="apr-info"><strong>${p.name}</strong><span>${p.category} · ₹${p.price}</span></div>
+      <div class="apr-edit" data-edit="${p.id}">Edit</div>
+      <div class="apr-delete" data-del="${p.id}">Delete</div>
+    `;
+    listEl.appendChild(row);
+  });
+  listEl.querySelectorAll("[data-edit]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      editingProductId = parseInt(btn.getAttribute("data-edit"));
+      renderAdminPanel();
+    });
+  });
+  listEl.querySelectorAll("[data-del]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (!confirm("Pakka is item ko delete karna hai?")) return;
+      const id = parseInt(btn.getAttribute("data-del"));
+      allProducts = allProducts.filter(p => p.id !== id);
+      saveAllProducts();
+      renderMenu();
+      renderCustomProductList();
+    });
+  });
+}
+
+/* ==========================================================================
+   INIT
+   ========================================================================== */
+renderCartDrawer();
+</script>
+
+</body>
+</html>
